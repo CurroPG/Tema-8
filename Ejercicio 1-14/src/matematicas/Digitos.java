@@ -8,6 +8,31 @@ public class Digitos {
         return esCapicua;
     }
 
+    public static int digitos(int x) {
+        int aux = x;
+        int digitos = 0;
+        do {
+            aux /= 10;
+            digitos++;
+        } while (aux != 0);
+        return digitos;
+    }
+
+    public static int digitoN(int x,int y) {
+        int digito = 0;
+        int posicion = 0;
+        int aux = x;
+        do {
+            digito = aux % 10;
+            if(posicion == y){
+                digito = posicion;
+                break;
+            }   
+            aux /= 10;
+        } while (aux != 0);
+        return digito;
+    }
+
     public static int voltea(int x) {
         int digito = 0;
         int invertido = 0;
