@@ -8,26 +8,73 @@ public class Digitos {
         return esCapicua;
     }
 
-    public static int digitos(int x) {
-        int aux = x;
-        int digitos = 0;
-        do {
-            aux /= 10;
-            digitos++;
-        } while (aux != 0);
-        return digitos;
-    }
-
-    public static int digitoN(int x,int y) {
+    public static int pegaporDelante(int x, int y) {
         int digito = 0;
-        int posicion = 0;
-        int aux = x;
+        int invertido = 0;
+        int aux = voltea(x);
+        invertido = invertido * 10 + y;
         do {
             digito = aux % 10;
-            if(posicion == y){
-                digito = posicion;
+            invertido = invertido * 10 + digito;
+            aux /= 10;
+        } while (aux != 0);
+        return invertido;
+    }
+
+    public static int pegaporDetras(int x, int y) {
+        int digito = 0;
+        int invertido = 0;
+        int aux = voltea(x);
+        do {
+            digito = aux % 10;
+            invertido = invertido * 10 + digito;
+            aux /= 10;
+        } while (aux != 0);
+        invertido = invertido * 10 + y;
+        return invertido;
+    }
+
+    public static int quitaPorDetras(int x, int y){
+        int digito = 0;
+        int posicion = 0;
+        int aux = voltea(x);
+        int invertido = 0;
+        int numDigitos = digitos(aux);
+        do {
+            digito = aux % 10;
+            if(posicion <= numDigitos-y)
+                invertido = invertido * 10 + digito;
+            posicion++;
+            aux /= 10;
+        } while (aux != 0);
+        return invertido;
+    }
+
+    public static int quitaPorDelante(int x, int y){
+        int digito = 0;
+        int posicion = 0;
+        int aux = voltea(x);
+        int invertido = 0;
+        int numDigitos = digitos(aux);
+        do {
+            digito = aux % 10;
+            if(posicion >= numDigitos-y)
+                invertido = invertido * 10 + digito;
+            posicion++;
+            aux /= 10;
+        } while (aux != 0);
+        return invertido;
+    }
+
+    public static int digitoN(int x, int y) {
+        int digito = 0;
+        int posicion = 0;
+        int aux = voltea(x);
+        do {
+            digito = aux % 10;
+            if(posicion == y)
                 break;
-            }   
+            posicion++;
             aux /= 10;
         } while (aux != 0);
         return digito;
@@ -43,6 +90,16 @@ public class Digitos {
             aux /= 10;
         } while (aux != 0);
         return invertido;
+    }
+
+    public static int digitos(int x) {
+        int aux = x;
+        int digitos = 0;
+        do {
+            aux /= 10;
+            digitos++;
+        } while (aux != 0);
+        return digitos;
     }
 
     public static int siguientePrimo(int x){
