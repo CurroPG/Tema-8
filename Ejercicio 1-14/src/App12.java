@@ -4,6 +4,6 @@ public class App12 {
         int numero = Integer.parseInt(System.console().readLine("Introduzca un número: "));
         int digito = Integer.parseInt(System.console().readLine("Introduzca un digito: "));
         
-        System.out.println("Si al "+numero+" se le pega por detrás el "+digito+" da el "+Digitos.pegaporDelante(numero, digito));
+        System.out.println("Si al "+numero+" se le pega por delante el "+digito+" da el "+Digitos.pegaporDelante(numero, digito));
     }
 }

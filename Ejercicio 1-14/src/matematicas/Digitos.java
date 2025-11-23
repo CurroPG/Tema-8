@@ -8,6 +8,21 @@ public class Digitos {
         return esCapicua;
     }
 
+    public static int trozoDeNumero(int x, int y, int z){
+        int digito = 0;
+        int posicion = 0;
+        int aux = voltea(x);
+        int invertido = 0;
+        do {
+            digito = aux % 10;
+            if(posicion <= z && posicion >= y)
+                invertido = invertido * 10 + digito;
+            posicion++;
+            aux /= 10;
+        } while (aux != 0);
+        return invertido;
+    }
+
     public static int pegaporDelante(int x, int y) {
         int digito = 0;
         int invertido = 0;
