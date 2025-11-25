@@ -1,156 +1,94 @@
 package matematicas;
 
 public class Digitos {
-    public static boolean esCapicua(int x) {
-        boolean esCapicua = false;
-        if (x == voltea(x))
-            esCapicua = true;
-        return esCapicua;
+
+    public static boolean esCapicua(int numero) {
+        if (numero == voltea(numero))
+            return true;
+        return false;
     }
 
-    public static int trozoDeNumero(int x, int y, int z){
-        int digito = 0;
-        int posicion = 0;
-        int aux = voltea(x);
-        int invertido = 0;
-        do {
-            digito = aux % 10;
-            if(posicion <= z && posicion >= y)
-                invertido = invertido * 10 + digito;
-            posicion++;
-            aux /= 10;
-        } while (aux != 0);
-        return invertido;
+    public static int juntaNumeros(int numero1, int numero2) {
+        int digitosSegundo = digitos(numero2);
+        for (int i = 0; i < digitosSegundo; i++) {
+            numero1 = pegaporDetras(numero1, digitoN(numero2, i));
+        }
+        return numero1;
     }
 
-    public static int pegaporDelante(int x, int y) {
+    public static int trozoDeNumero(int numero, int inicio, int fin) {
+        return quitaPorDelante(quitaPorDetras(numero, digitos(numero) - fin), digitos(numero) - inicio - 1);
+    }
+
+    public static int pegaporDelante(int numero, int digito) {
+        return juntaNumeros(digito, numero);
+    }
+
+    public static int pegaporDetras(int numero, int digito) {
+        return numero * 10 + digito;
+    }
+
+    public static int quitaPorDetras(int numero, int digito) {
+        return (int) (numero / potencia(10, digito));
+    }
+
+    public static int quitaPorDelante(int numero, int digitos) {
+        return numero % (int) potencia(10, digitos(numero) - digitos);
+    }
+
+    public static int digitoN(int numero, int posicion) {
+        return trozoDeNumero(numero, posicion, posicion);
+    }
+
+    public static int voltea(int numero) {
         int digito = 0;
         int invertido = 0;
-        int aux = voltea(x);
-        invertido = invertido * 10 + y;
         do {
-            digito = aux % 10;
+            digito = numero % 10;
             invertido = invertido * 10 + digito;
-            aux /= 10;
-        } while (aux != 0);
+            numero /= 10;
+        } while (numero != 0);
         return invertido;
     }
 
-    public static int pegaporDetras(int x, int y) {
-        int digito = 0;
-        int invertido = 0;
-        int aux = voltea(x);
-        do {
-            digito = aux % 10;
-            invertido = invertido * 10 + digito;
-            aux /= 10;
-        } while (aux != 0);
-        invertido = invertido * 10 + y;
-        return invertido;
-    }
-
-    public static int quitaPorDetras(int x, int y){
-        int digito = 0;
-        int posicion = 0;
-        int aux = voltea(x);
-        int invertido = 0;
-        int numDigitos = digitos(aux);
-        do {
-            digito = aux % 10;
-            if(posicion <= numDigitos-y)
-                invertido = invertido * 10 + digito;
-            posicion++;
-            aux /= 10;
-        } while (aux != 0);
-        return invertido;
-    }
-
-    public static int quitaPorDelante(int x, int y){
-        int digito = 0;
-        int posicion = 0;
-        int aux = voltea(x);
-        int invertido = 0;
-        int numDigitos = digitos(aux);
-        do {
-            digito = aux % 10;
-            if(posicion >= numDigitos-y)
-                invertido = invertido * 10 + digito;
-            posicion++;
-            aux /= 10;
-        } while (aux != 0);
-        return invertido;
-    }
-
-    public static int digitoN(int x, int y) {
-        int digito = 0;
-        int posicion = 0;
-        int aux = voltea(x);
-        do {
-            digito = aux % 10;
-            if(posicion == y)
-                break;
-            posicion++;
-            aux /= 10;
-        } while (aux != 0);
-        return digito;
-    }
-
-    public static int voltea(int x) {
-        int digito = 0;
-        int invertido = 0;
-        int aux = x;
-        do {
-            digito = aux % 10;
-            invertido = invertido * 10 + digito;
-            aux /= 10;
-        } while (aux != 0);
-        return invertido;
-    }
-
-    public static int digitos(int x) {
-        int aux = x;
+    public static int digitos(int numero) {
         int digitos = 0;
         do {
-            aux /= 10;
+            numero /= 10;
             digitos++;
-        } while (aux != 0);
+        } while (numero != 0);
         return digitos;
     }
 
-    public static int siguientePrimo(int x){
-        int siguientePrimo = 0;
-        while(true){
-            x++;
-            if(esPrimo(x)){
-                siguientePrimo = x;
-                break;
+    public static int siguientePrimo(int numero) {
+        while (true) {
+            numero++;
+            if (esPrimo(numero)) {
+                return numero;
             }
         }
-        return siguientePrimo;
     }
 
-    public static boolean esPrimo(int x) {
-        boolean esPrimo = true;
-        for (int i = 2; i < x; i++) {
-            if (x % i == 0)
-                esPrimo = false;
+    public static boolean esPrimo(int numero) {
+        for (int i = 2; i < numero; i++) {
+            if (numero % i == 0)
+                return false;
         }
-        return esPrimo;
+        return true;
     }
 
-    public static double potencia(int x, int y){
-        double potencia = 1;
-        if(y >= 0)
-            for(int i = 1; i <= y; i++){
-                potencia*=x;
+    public static double potencia(int base, int exponente) {
+        if (exponente >= 0)
+            for (int i = 2; i <= exponente; i++) {
+                base *= base;
             }
-            else{
-                y = y * -1;
-                for(int i = 1; i <= y; i++){
-                    potencia*=x;
-                }
-                potencia = 1/potencia;
+        else {
+            exponente = exponente * -1;
+            for (int i = 2; i <= exponente; i++) {
+                base *= base;
             }
-        return potencia;
+            base = 1 / base;
+        }
+        return base;
     }
 }
